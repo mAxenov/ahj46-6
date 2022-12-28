@@ -7,19 +7,21 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="container">
-            <div class="boards">
+        <div>
+            <div class="boards container">
                 <div class="boards__item">
                     <h2 class="boards__title">TODO</h2>
                     <div class="cards">
                         <div class="cards__item" draggable="true">
                             <p>Welcome to Trello!</p>
+                            <div class="cards__item-delete">
+                                <div class="close"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="cards__add"><span>+</span> Add another card</div>
                     <div class="form" hidden>
-                        <textarea type="text" class="form__textarea
-                            cards__item"
+                        <textarea type="text" class="form__textarea"
                             name="addCard"
                             placeholder="Enter a title for this card..."></textarea>
                         <div class="form__button">
@@ -33,8 +35,7 @@
                     <div class="cards"></div>
                     <div class="cards__add">+ Add another card</div>
                     <div class="form" hidden>
-                        <textarea type="text" class="form__textarea
-                            cards__item"
+                        <textarea type="text" class="form__textarea"
                             name="addCard"
                             placeholder="Enter a title for this card..."></textarea>
                         <div class="form__button">
@@ -48,8 +49,7 @@
                     <div class="cards"></div>
                     <div class="cards__add">+ Add another card</div>
                     <div class="form" hidden>
-                        <textarea type="text" class="form__textarea
-                            cards__item"
+                        <textarea type="text" class="form__textarea"
                             name="textarea"
                             placeholder="Enter a title for this card..."></textarea>
                         <div class="form__button">

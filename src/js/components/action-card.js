@@ -1,4 +1,4 @@
-import dragNdrop from '../app';
+import dndItem from './dnd-item';
 
 export default class ActionCard {
   constructor() {
@@ -39,10 +39,16 @@ export default class ActionCard {
     newCard.classList.add('cards__item');
     newCard.draggable = true;
     textContent.textContent = this.textAreaValue;
+    const closeElement = document.createElement('div');
+    const close = document.createElement('div');
+    closeElement.classList.add('cards__item-delete');
+    close.classList.add('close');
+    closeElement.appendChild(close);
+    newCard.appendChild(closeElement);
     newCard.appendChild(textContent);
     this.getParentItem(e).querySelector('.cards').appendChild(newCard);
+    dndItem();
     this.onCloseFormClick(e);
-    dragNdrop();
   }
 
   onCloseFormClick(e) {
@@ -75,13 +81,24 @@ export default class ActionCard {
 
   onListItemClick(e) {
     const parentEl = e.target.closest('.cards__item');
-    if (parentEl !== null && parentEl.querySelector('.cards__item-delete') === null) {
-      const closeElement = document.createElement('div');
-      const close = document.createElement('div');
-      closeElement.classList.add('cards__item-delete');
-      close.classList.add('close');
-      closeElement.appendChild(close);
-      parentEl.appendChild(closeElement);
+    if (parentEl === null) {
+      return;
+    }
+
+    const item = parentEl.querySelector('.cards__item-delete');
+
+    if (item === null) {
+      return;
+    }
+
+    if (getComputedStyle(item).display === 'none') {
+      item.style.display = 'block';
+
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const el = e.target.closest('.cards__item');
+        el.remove();
+      });
 
       parentEl.addEventListener(('mouseleave'), (e) => {
         const parentEl = e.target.closest('.cards__item');
@@ -90,13 +107,8 @@ export default class ActionCard {
         }
         const el = parentEl.querySelector('.cards__item-delete');
         if (el !== null) {
-          parentEl.removeChild(el);
+          item.style.display = 'none';
         }
-      });
-
-      parentEl.querySelector('.cards__item-delete').addEventListener('click', (e) => {
-        const el = e.target.closest('.cards');
-        el.removeChild(e.target.closest('.cards__item'));
       });
     }
   }
